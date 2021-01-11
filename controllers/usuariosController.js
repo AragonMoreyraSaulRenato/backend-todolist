@@ -4,7 +4,7 @@ const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 
 exports.create = async (req, res) => {
-
+   //VALIDAR SI EXISTEN ERRORES
    const errores = validationResult(req);
    if (!errores.isEmpty()) {
       return res.status(400).json({ errores: errores.array() });
