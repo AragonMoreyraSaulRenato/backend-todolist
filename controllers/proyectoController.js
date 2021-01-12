@@ -20,7 +20,7 @@ exports.crear = async (req, res) => {
       proyecto.save();
       return res.json({
          msg: 'Proyecto creado exitosamente!',
-         ...proyecto.toJSON()
+         proyecto: proyecto.toJSON()
       });
 
    } catch (error) {
@@ -33,7 +33,7 @@ exports.crear = async (req, res) => {
 exports.obtener = async (req, res) => {
    try {
       const proyectos = await Proyecto.find({ creador: req.usuario.id }).sort({ creado: -1 });
-      res.json({ proyectos })
+      res.json([...proyectos])
    } catch (error) {
       console.log(error);
       res.status(500).send('Hubo un error');
@@ -78,7 +78,7 @@ exports.actualizar = async (req, res) => {
          { new: true }
       );
 
-      res.json({ msg: 'Actualizado exitosamente!', ...proyecto.toJSON() })
+      res.json({ msg: 'Actualizado exitosamente!', proyecto: proyecto.toJSON() })
 
 
    } catch (error) {
