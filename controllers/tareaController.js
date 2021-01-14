@@ -73,7 +73,7 @@ exports.actualizar = async (req, res) => {
    }
 
    try {
-      const { proyecto, nombre, estado } = req.body;
+      const { proyecto, nombre, estado, descripcion } = req.body;
 
       //SI LA TAREA EXISTE
       let tarea = await Tarea.findById(req.params.id);
@@ -94,6 +94,7 @@ exports.actualizar = async (req, res) => {
       const nuevaTarea = {};
       if (nombre) nuevaTarea.nombre = nombre;
       if (estado) nuevaTarea.estado = estado;
+      if (descripcion) nuevaTarea.descripcion = descripcion;
 
       //GUARDAR LA TAREA
       tarea = await Tarea.findByIdAndUpdate({ _id: req.params.id }, nuevaTarea, { new: true });

@@ -32,7 +32,7 @@ exports.authUser = async (req, res) => {
       }
 
       jwt.sign(payload, process.env.SECRET_WORD, {
-         expiresIn: 18000// ONE HOUR
+         expiresIn: 18000// 5 HOURs
       }, (error, token) => {
          if (error) throw error;
          else {
