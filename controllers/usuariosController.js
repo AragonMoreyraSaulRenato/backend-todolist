@@ -53,3 +53,30 @@ exports.create = async (req, res) => {
       res.status(400).send("Hubo un error");
    }
 }
+
+
+exports.delete = async (req, res) => {
+   try {
+
+      //SI EL USUARIO EXISTE
+      let usuario = await Usuario.findById(req.usuario.id);
+
+      if (!usuario) {
+         res.status(404).json({ msg: 'Usuario no existe' });
+      }
+
+
+      //REVISAR SI EL USUARIO ESTA AUTENTICADO
+      if (usuario._id.toString() !== req.usuario.id) {
+         return res.status(401).json({ msg: 'No autorizado' });
+      }
+
+      //ELIMINAR
+      await Usuario.findByIdAndRemove({ _id: req.usuario.id });
+      res.json({ deleted: true, msg: 'Usuario eliminado' })
+
+   } catch (error) {
+      console.log(error);
+      res.status(500).send('Hubo un error');
+   }
+}

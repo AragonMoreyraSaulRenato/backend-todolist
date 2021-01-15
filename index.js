@@ -1,29 +1,12 @@
-const express = require('express');
-const path = require('path');
-const DBConection = require('./config/db');
-
-//SE CREAL EL SERIVODR
-const app = express();
-
+const app = require('./app');
+const databaseConection = require('./config/db');
 //ESTABLECER CONEXION CON LA BASE DE DATOS
-DBConection();
-
-//HABILITAR EXPRESS.JSON
-app.use(express.json({ extended: true }));
-
-//PUERTO DE LA APP
-app.set('port', process.env.PORT || 4000);
-
-//AGREGO VISTA PARA INCIO
-app.use(express.static(path.join(__dirname, 'public')));
-
-//IMPORTAR USUARIOS
-app.use('/api/usuarios', require('./routes/usuariosRoute'));
-app.use('/api/auth', require('./routes/authRoute'));
-app.use('/api/proyectos', require('./routes/proyectosRoute'));
-app.use('/api/tareas', require('./routes/tareasRoute'));
 
 //INICIAR LA APP
-app.listen(app.get('port'), '0.0.0.0', () => {
+app.listen(app.get('port'), '0.0.0.0', async () => {
+   const isConected = await databaseConection();
+   console.log(`Database is ${isConeted ? 'connected' : 'no connected'}`);
    console.log(`Server is working in port ${app.get('port')}`);
 })
+
+module.exports = app;
