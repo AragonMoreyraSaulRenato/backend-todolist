@@ -1,11 +1,15 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 
 //SE CREAL EL SERIVODR
 const app = express();
 
 //HABILITAR EXPRESS.JSON
 app.use(express.json({ extended: true }));
+
+//HABILITAR CORS
+app.use(cors());
 
 //PUERTO DE LA APP
 app.set('port', process.env.PORT || 4000);

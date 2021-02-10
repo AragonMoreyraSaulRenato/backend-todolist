@@ -2,20 +2,6 @@ const request = require('supertest');
 const app = require('../app');
 const databaseConection = require('../config/db');
 
-/* beforeAll((done) => {
-  request(app)
-    .post('/api/auth')
-    .send({
-      username: "drone@outlook.es",
-      password: "1234567",
-    })
-    .end((err, response) => {
-      token = response.body.token;
-      done();
-    });
-}); */
-
-
 
 describe('POST /api/usuarios', () => {
 

@@ -21,7 +21,6 @@ router.put('/:id',
    auth,
    [
       check('nombre', 'El nombre del proyecto es obligatorio').not().isEmpty(),
-      check('descripcion', 'Debes agregar una descripcion al proyecto').not().isEmpty()
    ],
    proyectoController.actualizar
 );
