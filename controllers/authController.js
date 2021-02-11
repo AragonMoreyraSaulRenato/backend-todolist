@@ -32,9 +32,10 @@ exports.authUser = async (req, res) => {
       }
 
       jwt.sign(payload, process.env.SECRET_WORD, {
-         expiresIn: 18000// 5 HOURs
+         expiresIn: 18000// 6 HOURs
+         //expiresIn: 100// 5 HOURs
       }, (error, token) => {
-         if (error) throw error;
+         if (error) res.status(400).send("Hubo un error");
          else {
             res.json({
                msg: "Inicio de sesion exitosamente!",
@@ -44,7 +45,7 @@ exports.authUser = async (req, res) => {
       });
 
    } catch (error) {
-      console.log(error);
+      res.status(400).send("Hubo un error");
    }
 }
 
@@ -55,7 +56,6 @@ exports.authenticatedUser = async (req, res) => {
       const usuario = await Usuario.findById(req.usuario.id).select("-password");
       return res.status(200).json(usuario);
    } catch (error) {
-      console.log(error);
       return res.status(500).json({ msg: "Hubo un error" });
    }
 }

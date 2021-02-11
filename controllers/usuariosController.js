@@ -38,7 +38,7 @@ exports.create = async (req, res) => {
       jwt.sign(payload, process.env.SECRET_WORD, {
          expiresIn: 3600// ONE HOUR
       }, (error, token) => {
-         if (error) throw error;
+         if (error) res.status(500).send("Hubo un error");
          else {
             res.json({
                msg: "Usuario creado exitosamente!",
