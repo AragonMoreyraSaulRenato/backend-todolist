@@ -1,14 +1,10 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const { setQueues,
-   BullAdapter, router } = require('bull-board');
-const Queue = require('./lib/Queue');
-
+const kue = require('kue');
 
 //SE CREAL EL SERIVODR
 const app = express();
-setQueues(Queue.queues.map(queue => new BullAdapter(queue.bull)))
 
 
 //HABILITAR EXPRESS.JSON
@@ -24,7 +20,7 @@ app.set('port', process.env.PORT || 4000);
 app.use(express.static(path.join(__dirname, 'public')));
 
 //WORKER DASHBOARD BULL
-app.use('/admin/queues', router);
+app.use('/kue/admin', kue.app);
 
 //IMPORTAR USUARIOSd
 app.use('/api/usuarios', require('./routes/usuariosRoute'));
