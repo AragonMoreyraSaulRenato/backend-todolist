@@ -19,3 +19,15 @@ exports.user = async (req, res) => {
 
    return res.json({ msg: `We will send a message to ${to}` });
 }
+
+
+exports.createFile = async (req, res) => {
+   const { to, name, subject, content } = req.body;
+
+   const job = new Job('CreateFile');
+   job.offer();
+
+   return res.json({ msg: `We will send a message to ${to}` });
+}
+
+

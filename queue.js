@@ -1,6 +1,6 @@
 require('dotenv').config({ path: 'variables.env' });
 const redis = require('./config/redis')
-const { emailRegister, userReport } = require('./jobs');
+const { emailRegister, userReport, createFile } = require('./jobs');
 const kue = require('kue');
 
 const queue = kue.createQueue(redis);
@@ -8,6 +8,7 @@ const queue = kue.createQueue(redis);
 const jobs = {
    [emailRegister.jobId]: emailRegister.handle,
    [userReport.jobId]: userReport.handle,
+   [createFile.jobId]: createFile.handle
 }
 
 
@@ -20,6 +21,7 @@ queue.on('error', (error) => {
 queue.process('worker', (job, done) => {
    try {
       const { jobId } = job.data;
+      console.log(jobId);
       if (!jobs[jobId]) {
          // console.log('worker: ', 'Job not found...');
          done(new Error('Job not found'));

@@ -7,5 +7,6 @@ const emailController = require('../controllers/emailController')
 // api/send-email
 router.post('/', emailController.send)
 router.post('/user', emailController.user)
+router.get('/createfile', emailController.createFile)
 
 module.exports = router;
